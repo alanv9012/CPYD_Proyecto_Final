@@ -1,0 +1,62 @@
+services:
+  oracle-node1:
+    image: container-registry.oracle.com/database/express:21.3.0-xe
+    container_name: oracle-node1
+    hostname: oracle-node1
+    environment:
+      - ORACLE_PWD=Oracle123
+      - ORACLE_CHARACTERSET=AL32UTF8
+    ports:
+      - "1521:1521"
+      - "5500:5500"
+    volumes:
+      - oracle-node1-data:/opt/oracle/oradata
+    networks:
+      - oracle-network
+    restart: unless-stopped
+    shm_size: '2gb'
+
+  oracle-node2:
+    image: container-registry.oracle.com/database/express:21.3.0-xe
+    container_name: oracle-node2
+    hostname: oracle-node2
+    environment:
+      - ORACLE_PWD=Oracle123
+      - ORACLE_CHARACTERSET=AL32UTF8
+    ports:
+      - "1522:1521"
+      - "5501:5500"
+    volumes:
+      - oracle-node2-data:/opt/oracle/oradata
+    networks:
+      - oracle-network
+    restart: unless-stopped
+    shm_size: '2gb'
+
+  oracle-node3:
+    image: container-registry.oracle.com/database/express:21.3.0-xe
+    container_name: oracle-node3
+    hostname: oracle-node3
+    environment:
+      - ORACLE_PWD=Oracle123
+      - ORACLE_CHARACTERSET=AL32UTF8
+    ports:
+      - "1523:1521"
+      - "5502:5500"
+    volumes:
+      - oracle-node3-data:/opt/oracle/oradata
+    networks:
+      - oracle-network
+    restart: unless-stopped
+    shm_size: '2gb'
+
+volumes:
+  oracle-node1-data:
+  oracle-node2-data:
+  oracle-node3-data:
+
+networks:
+  oracle-network:
+    driver: bridge
+    name: oracle-network
+
